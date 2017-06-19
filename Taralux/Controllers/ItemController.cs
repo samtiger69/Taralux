@@ -37,6 +37,11 @@ namespace Taralux.Controllers
                     };
                 }
 
+                if (request.Data == null)
+                {
+                    request.Data = new Item();
+                }
+
                 if (request.Settings == null)
                 {
                     request.Settings = new Settings

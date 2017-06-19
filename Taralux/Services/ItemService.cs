@@ -25,7 +25,7 @@ namespace Taralux.Services
                     {
                         cmd.Parameters.AddWithValue("@Id", request.Data.Id);
                     }
-                    if (request.Data.Id != 0)
+                    if (request.Data.CategoryId != 0)
                     {
                         cmd.Parameters.AddWithValue("@CategoryId", request.Data.CategoryId);
                     }
