@@ -67,7 +67,7 @@ namespace Taralux.Controllers
         {
             try
             {
-                ValidateCategory(request);
+                ValidateCreateCategaory(request);
 
                 return await _categoryService.Create(request);
             }
@@ -87,7 +87,63 @@ namespace Taralux.Controllers
             }
         }
 
-        private void ValidateCategory(Request<Category> request)
+        [HttpPost]
+        public async Task<Response<Category>> Update(Request<Category> request)
+        {
+            try
+            {
+                ValidateUpdateCategory(request);
+
+                return await _categoryService.Update(request);
+            }
+            catch (TaraluxException ex)
+            {
+                return new Response<Category>
+                {
+                    ErrorCode = new ErrorCode(ex.ErrorCode.ErrorMessage, ex.ErrorCode.ErrorNumber)
+                };
+            }
+            catch (Exception e)
+            {
+                return new Response<Category>
+                {
+                    ErrorCode = new ErrorCode(e.Message, ErrorNumber.GeneralError)
+                };
+            }
+        }
+
+        //[HttpPost]
+        //public async Task<Response> Delete(Request<int?> request)
+        //{
+        //    try
+        //    {
+        //        if(request == null || !request.Data.HasValue)
+        //        {
+        //            throw new TaraluxException
+        //            {
+        //                ErrorCode = new ErrorCode("Empty Required Field", ErrorNumber.EmptyRequiredField)
+        //            };
+        //        }
+
+        //        return await _categoryService.Delete(request);
+        //    }
+        //    catch (TaraluxException ex)
+        //    {
+        //        return new Response<Category>
+        //        {
+        //            ErrorCode = new ErrorCode(ex.ErrorCode.ErrorMessage, ex.ErrorCode.ErrorNumber)
+        //        };
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return new Response<Category>
+        //        {
+        //            ErrorCode = new ErrorCode(e.Message, ErrorNumber.GeneralError)
+        //        };
+        //    }
+        //}
+
+        private void ValidateCreateCategaory(Request<Category> request)
         {
             try
             {
@@ -107,5 +163,24 @@ namespace Taralux.Controllers
             }
         }
 
+        private void ValidateUpdateCategory(Request<Category> request)
+        {
+            try
+            {
+                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn))
+                    throw new TaraluxException
+                    {
+                        ErrorCode = new ErrorCode("Empty Required Field", ErrorNumber.EmptyRequiredField)
+                    };
+            }
+            catch (TaraluxException ex)
+            {
+                throw ex;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

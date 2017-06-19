@@ -109,6 +109,61 @@ namespace Taralux.Services
             }
         }
 
+        public async Task<Response<Category>> Update(Request<Category> request)
+        {
+            try
+            {
+                var response = new Response<Category>
+                {
+                    Data = request.Data
+                };
+
+                await ExecuteNonQuery(StoredProcedure.CATEGORY_UPDATE, delegate (SqlCommand cmd)
+                {
+                    cmd.Parameters.AddWithValue("@Id", request.Data.Id);
+                    cmd.Parameters.AddWithValue("@NameAr", request.Data.NameAr);
+                    cmd.Parameters.AddWithValue("@NameEn", request.Data.NameEn);
+                    cmd.Parameters.AddWithValue("@ParentId", request.Data.ParentId);
+                });
+
+                return response;
+            }
+            catch (TaraluxException ex)
+            {
+                throw ex;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        //public async Task<Response> Delete(Request<int?> request)
+        //{
+        //    try
+        //    {
+        //        var response = new Response
+        //        {
+        //            ErrorCode = new ErrorCode("",ErrorNumber.Success)
+        //        };
+
+        //        await ExecuteNonQuery(StoredProcedure.CATEGORY_DELETE, delegate (SqlCommand cmd)
+        //        {
+        //            cmd.Parameters.AddWithValue("@Id", request.Data.Value);
+        //        });
+
+        //        return response;
+        //    }
+        //    catch (TaraluxException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
+
         private void FormTree(List<Category> categoryList, Category node)
         {
             if (node != null)
@@ -124,8 +179,5 @@ namespace Taralux.Services
                 }
             }
         }
-
-
-
     }
 }

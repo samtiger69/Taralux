@@ -13,23 +13,13 @@ namespace Taralux.Models
         public byte[] Content { get; set; }
         public bool IsDefault { get; set; }
         public int SourceId { get; set; }
+        public ImageType Type { get; set; }
     }
 
-    public class ItemImage : ImageBase
+    public enum ImageType
     {
-        public int ItemId { get; set; }
-        public virtual Item Item { get; set; }
-    }
-
-    public class CategoryImage : ImageBase
-    {
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
-    }
-
-    public class ElectricianImage: ImageBase
-    {
-        public int ElectricianId { get; set; }
-        public virtual Electrician Electrician { get; set; }
+        CategoryImage = 0,
+        ItemImage = 1,
+        ElectricianImage = 2
     }
 }

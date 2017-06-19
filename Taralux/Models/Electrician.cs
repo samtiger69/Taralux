@@ -13,7 +13,7 @@ namespace Taralux.Models
         public double AverageRate { get; set; }
 
         public virtual List<ElectricianRate> Rates { get; set; }
-        public virtual List<ElectricianImage> Images { get; set; }
+        public virtual List<ImageBase> Images { get; set; }
         public virtual List<ElectricianComment> Comments { get; set; }
     }
 }
