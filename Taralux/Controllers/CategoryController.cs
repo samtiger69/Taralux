@@ -150,7 +150,7 @@ namespace Taralux.Controllers
         {
             try
             {
-                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.Icon == null || ((request.Data.Icon == null || request.Data.Icon.Content.Length <= 0) && string.IsNullOrEmpty(request.Data.Icon.Base64)))
+                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.Icon == null || request.Data.Icon == null || ((request.Data.Icon.Content == null || request.Data.Icon.Content.Length <= 0) && string.IsNullOrEmpty(request.Data.Icon.Base64)))
                     throw new TaraluxException
                     {
                         ErrorCode = new ErrorCode("Empty Required Field", ErrorNumber.EmptyRequiredField)
