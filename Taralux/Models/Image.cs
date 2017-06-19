@@ -14,6 +14,7 @@ namespace Taralux.Models
         public bool IsDefault { get; set; }
         public int SourceId { get; set; }
         public ImageType Type { get; set; }
+        public string Base64 { get; set; }
     }
 
     public enum ImageType

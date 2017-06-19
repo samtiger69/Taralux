@@ -68,7 +68,10 @@ namespace Taralux.Controllers
             try
             {
                 ValidateCreateCategaory(request);
-
+                if (!string.IsNullOrEmpty(request.Data.Icon.Base64))
+                {
+                    request.Data.Icon.Content = Convert.FromBase64String(request.Data.Icon.Base64);
+                }
                 return await _categoryService.Create(request);
             }
             catch (TaraluxException ex)
@@ -147,7 +150,7 @@ namespace Taralux.Controllers
         {
             try
             {
-                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.Icon == null || request.Data.Icon.Content == null || request.Data.Icon.Content.Length <= 0)
+                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.Icon == null || ((request.Data.Icon == null || request.Data.Icon.Content.Length <= 0) && string.IsNullOrEmpty(request.Data.Icon.Base64)))
                     throw new TaraluxException
                     {
                         ErrorCode = new ErrorCode("Empty Required Field", ErrorNumber.EmptyRequiredField)
