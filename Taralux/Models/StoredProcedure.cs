@@ -15,7 +15,7 @@ namespace Taralux.Models
         #endregion
 
         #region Item
-        public const string ITEM_GET = "Category_Get";
+        public const string ITEM_GET = "Item_Get";
         public const string ITEM_CREATE = "Item_Create";
         public const string ITEM_UPDATE = "Item_Update";
         public const string ITEM_DELETE = "Item_Delete";

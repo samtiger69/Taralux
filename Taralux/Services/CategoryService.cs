@@ -87,6 +87,7 @@ namespace Taralux.Services
                     cmd.Parameters.AddWithValue("@ParentId", request.Data.ParentId);
                     cmd.Parameters.AddWithValue("@ImageContent", request.Data.Icon.Content);
                     cmd.Parameters.AddWithValue("@ImageIsDefault", request.Data.Icon.IsDefault);
+                    cmd.Parameters.AddWithValue("@ImageType", ImageType.CategoryImage);
                 },
                 async delegate(SqlDataReader reader)
                 {
