@@ -10,36 +10,36 @@ using Taralux.Services;
 
 namespace Taralux.Controllers
 {
-    public class ItemController : ApiController
+    public class ElectricianController : ApiController
     {
-        private ItemService _itemService;
+        private ElectricianService _electricianService;
 
-        public ItemController()
+        public ElectricianController()
         {
-            _itemService = new ItemService();
+            _electricianService = new ElectricianService();
         }
 
         [HttpPost]
-        public async Task<Response<List<Item>>> Get(Request<Item> request)
+        public async Task<Response<List<Electrician>>> Get(Request<Electrician> request)
         {
             try
             {
                 if (request == null)
                 {
-                    request = new Request<Item>
+                    request = new Request<Electrician>
                     {
                         Settings = new Settings
                         {
                             PageNumber = 1,
                             PageSize = int.MaxValue
                         },
-                        Data = new Item()
+                        Data = new Electrician()
                     };
                 }
 
                 if (request.Data == null)
                 {
-                    request.Data = new Item();
+                    request.Data = new Electrician();
                 }
 
                 if (request.Settings == null)
@@ -51,11 +51,11 @@ namespace Taralux.Controllers
                     };
                 }
 
-                return await _itemService.Get(request);
+                return await _electricianService.Get(request);
             }
             catch (TaraluxException ex)
             {
-                return new Response<List<Item>>
+                return new Response<List<Electrician>>
                 {
                     ErrorCode = new ErrorCode
                     {
@@ -66,7 +66,7 @@ namespace Taralux.Controllers
             }
             catch (Exception e)
             {
-                return new Response<List<Item>>
+                return new Response<List<Electrician>>
                 {
                     ErrorCode = new ErrorCode
                     {
@@ -78,22 +78,22 @@ namespace Taralux.Controllers
         }
 
         [HttpPost]
-        public async Task<Response<Item>> Create(Request<Item> request)
+        public async Task<Response<Electrician>> Create(Request<Electrician> request)
         {
             try
             {
-                ValidateCreateItem(request);
+                ValidateCreate(request);
 
-                if(!string.IsNullOrEmpty(request.Data.Icon.Base64))
+                if (!string.IsNullOrEmpty(request.Data.Icon.Base64))
                 {
                     request.Data.Icon.Content = Convert.FromBase64String(request.Data.Icon.Base64);
                 }
 
-                return await _itemService.Create(request);
+                return await _electricianService.Create(request);
             }
             catch (TaraluxException ex)
             {
-                return new Response<Item>
+                return new Response<Electrician>
                 {
                     ErrorCode = new ErrorCode
                     {
@@ -104,7 +104,7 @@ namespace Taralux.Controllers
             }
             catch (Exception e)
             {
-                return new Response<Item>
+                return new Response<Electrician>
                 {
                     ErrorCode = new ErrorCode
                     {
@@ -116,17 +116,17 @@ namespace Taralux.Controllers
         }
 
         [HttpPost]
-        public async Task<Response<Item>> Update(Request<Item> request)
+        public async Task<Response<Electrician>> Update(Request<Electrician> request)
         {
             try
             {
-                ValidateUpdateItem(request);
+                ValidateUpdate(request);
 
-                return await _itemService.Update(request);
+                return await _electricianService.Update(request);
             }
             catch (TaraluxException ex)
             {
-                return new Response<Item>
+                return new Response<Electrician>
                 {
                     ErrorCode = new ErrorCode
                     {
@@ -137,7 +137,7 @@ namespace Taralux.Controllers
             }
             catch (Exception e)
             {
-                return new Response<Item>
+                return new Response<Electrician>
                 {
                     ErrorCode = new ErrorCode
                     {
@@ -153,15 +153,15 @@ namespace Taralux.Controllers
         {
             try
             {
-                if(request == null || !request.Data.HasValue)
+                if (request == null || !request.Data.HasValue)
                 {
                     throw new TaraluxException
                     {
-                        ErrorCode = new ErrorCode("Empty required field",ErrorNumber.EmptyRequiredField)
+                        ErrorCode = new ErrorCode("Empty required field", ErrorNumber.EmptyRequiredField)
                     };
                 }
 
-                return await _itemService.Delete(request);
+                return await _electricianService.Delete(request);
             }
             catch (TaraluxException ex)
             {
@@ -187,11 +187,11 @@ namespace Taralux.Controllers
             }
         }
 
-        private void ValidateCreateItem(Request<Item> request)
+        private void ValidateCreate(Request<Electrician> request)
         {
             try
             {
-                if(request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.CategoryId == 0 || request.Data.Price == 0 || request.Data.Icon == null || ((request.Data.Icon.Content == null || request.Data.Icon.Content.Length <= 0) && string.IsNullOrEmpty(request.Data.Icon.Base64)))
+                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.PhoneNumber) || string.IsNullOrEmpty(request.Data.Location) || string.IsNullOrEmpty(request.Data.Description) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.Icon == null || ((request.Data.Icon.Content == null || request.Data.Icon.Content.Length <= 0) && string.IsNullOrEmpty(request.Data.Icon.Base64)))
                 {
                     throw new TaraluxException
                     {
@@ -209,11 +209,11 @@ namespace Taralux.Controllers
             }
         }
 
-        private void ValidateUpdateItem(Request<Item> request)
+        private void ValidateUpdate(Request<Electrician> request)
         {
             try
             {
-                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || request.Data.CategoryId == 0 || request.Data.Price == 0 || request.Data.Id == 0)
+                if (request == null || request.Data == null || string.IsNullOrEmpty(request.Data.NameAr) || string.IsNullOrEmpty(request.Data.NameEn) || string.IsNullOrEmpty(request.Data.PhoneNumber) || string.IsNullOrEmpty(request.Data.Location) || string.IsNullOrEmpty(request.Data.Description))
                 {
                     throw new TaraluxException
                     {
@@ -230,5 +230,7 @@ namespace Taralux.Controllers
                 throw e;
             }
         }
+
+
     }
 }

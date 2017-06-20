@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Taralux.Models;
 
 namespace Taralux.Services
@@ -53,6 +50,7 @@ namespace Taralux.Services
                      cmd.Parameters.AddWithValue("@SourceId", request.Data.SourceId);
                      cmd.Parameters.AddWithValue("@Content", request.Data.Content);
                      cmd.Parameters.AddWithValue("@IsDefault", request.Data.IsDefault);
+                     cmd.Parameters.AddWithValue("@Type", request.Data.Type);
                  }));
 
                 response.Data.Id = result;
@@ -69,7 +67,7 @@ namespace Taralux.Services
             }
         }
 
-        public async Task<Response> Delete(Request<int> request)
+        public async Task<Response> Delete(Request<int?> request)
         {
             try
             {
@@ -78,10 +76,10 @@ namespace Taralux.Services
                     ErrorCode = new ErrorCode("", ErrorNumber.Success)
                 };
 
-                var result = Convert.ToInt32(await ExecuteScalar(StoredProcedure.IMAGE_DELETE, delegate (SqlCommand cmd)
+               await ExecuteNonQuery(StoredProcedure.IMAGE_DELETE, delegate (SqlCommand cmd)
                 {
-                    cmd.Parameters.AddWithValue("@SourceId", request.Data);
-                }));
+                    cmd.Parameters.AddWithValue("@Id", request.Data.Value);
+                });
 
                 return response;
             }

@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ElectricianController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Electrician.cs" />
     <Compile Include="Models\ElectricianComment.cs" />
-    <Compile Include="Models\ElectricianRate.cs" />
     <Compile Include="Models\ErrorCode.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Item.cs" />
@@ -173,7 +173,6 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ElectricianCommentService.cs" />
-    <Compile Include="Services\ElectricianRateService.cs" />
     <Compile Include="Services\ElectricianService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\ItemService.cs" />

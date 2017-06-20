@@ -26,5 +26,12 @@ namespace Taralux.Models
         public const string IMAGE_CREATE = "Image_Create";
         public const string IMAGE_DELETE = "Image_Delete";
         #endregion
+
+        #region Electrician
+        public const string ELECTRICIAN_GET = "Electrician_Get";
+        public const string ELECTRICIAN_CREATE = "Electrician_Create";
+        public const string ELECTRICIAN_UPDATE = "Electrician_Update";
+        public const string ELECTRICIAN_DELETE = "Electrician_Delete";
+        #endregion
     }
 }

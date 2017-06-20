@@ -8,8 +8,6 @@ namespace Taralux.Models
     public class ImageBase
     {
         public int Id { get; set; }
-        public string Path { get; set; }
-        public string Name { get; set; }
         public byte[] Content { get; set; }
         public bool IsDefault { get; set; }
         public int SourceId { get; set; }
@@ -19,8 +17,9 @@ namespace Taralux.Models
 
     public enum ImageType
     {
-        CategoryImage = 0,
-        ItemImage = 1,
-        ElectricianImage = 2
+        Unspecified = 0,
+        CategoryImage = 1,
+        ItemImage = 2,
+        ElectricianImage = 3
     }
 }
