@@ -29,9 +29,9 @@ namespace Taralux.Services
                     {
                         cmd.Parameters.AddWithValue("@CategoryId", request.Data.CategoryId);
                     }
-                }, async delegate (SqlDataReader reader)
+                },delegate (SqlDataReader reader)
                 {
-                    while (await reader.ReadAsync())
+                    while (reader.Read())
                     {
                         response.Data.Add(new Item
                         {
@@ -76,9 +76,9 @@ namespace Taralux.Services
                     cmd.Parameters.AddWithValue("@ImageIsDefault", request.Data.Icon.IsDefault);
                     cmd.Parameters.AddWithValue("@ImageType", ImageType.ItemImage);
                 },
-                async delegate (SqlDataReader reader)
+                delegate (SqlDataReader reader)
                 {
-                    if (await reader.ReadAsync())
+                    if (reader.Read())
                     {
                         response.Data.Id = Convert.ToInt32(reader["Id"]);
                         request.Data.IconId = response.Data.Icon.Id = Convert.ToInt32(reader["ImageId"]);

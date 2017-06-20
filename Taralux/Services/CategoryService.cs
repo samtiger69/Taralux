@@ -32,9 +32,9 @@ namespace Taralux.Services
                     cmd.Parameters.AddWithValue("@PageSize", request.Settings.PageSize);
                     cmd.Parameters.AddWithValue("@PageNumber", request.Settings.PageNumber);
 
-                }, async delegate (SqlDataReader reader)
+                },delegate (SqlDataReader reader)
                 {
-                    while (await reader.ReadAsync())
+                    while (reader.Read())
                     {
                         var categoryId = Convert.ToInt32(reader["Id"]);
                         categoryList.Add(new Category
@@ -89,9 +89,9 @@ namespace Taralux.Services
                     cmd.Parameters.AddWithValue("@ImageIsDefault", request.Data.Icon.IsDefault);
                     cmd.Parameters.AddWithValue("@ImageType", ImageType.CategoryImage);
                 },
-                async delegate(SqlDataReader reader)
+                delegate(SqlDataReader reader)
                 {
-                    if(await reader.ReadAsync())
+                    if(reader.Read())
                     {
                         response.Data.Id = Convert.ToInt32(reader["Id"]);
                         request.Data.IconId = response.Data.Icon.Id = Convert.ToInt32(reader["ImageId"]);

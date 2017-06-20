@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Threading.Tasks;
 using Taralux.Models;
 
@@ -16,11 +17,18 @@ namespace Taralux.Services
                  {
                      cmd.Parameters.AddWithValue("@Id", imageId);
                  }
-                , async delegate (SqlDataReader reader)
+                , delegate (SqlDataReader reader)
                 {
-                    if(await reader.ReadAsync())
+                    try
                     {
-                        content = (byte[])reader["Content"];
+                        if (reader.Read())
+                        {
+                            content = (byte[])reader["Content"];
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
                     }
                 });
                 
