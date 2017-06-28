@@ -29,9 +29,6 @@ namespace Taralux.Services
                 var imageService = new ImageService();
                 await ExecuteReader(StoredProcedure.CATEGORY_GET, delegate (SqlCommand cmd)
                 {
-                    cmd.Parameters.AddWithValue("@PageSize", request.Settings.PageSize);
-                    cmd.Parameters.AddWithValue("@PageNumber", request.Settings.PageNumber);
-
                 },delegate (SqlDataReader reader)
                 {
                     while (reader.Read())
